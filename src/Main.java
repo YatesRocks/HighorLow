@@ -1,4 +1,5 @@
 import java.io.InputStreamReader;
+import java.util.Random;
 import java.util.function.Function;
 import java.io.BufferedReader;
 
@@ -20,6 +21,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Random gen = new Random();
+        int number_to_guess = gen.nextInt(10) + 1; // 1-10 inclusive
+        Integer user_guess;
+
+        // Make sure the users guess is in range
+        while (true) {
+            user_guess = get_valid_input("Guess an integer number between 1-10 inclusive: ", Integer::parseInt);
+            if (!(user_guess > 10 || user_guess < 1)) break;
+            System.out.println("Your guess was outside the range. Make sure your number is between 1-10 inclusive");
+        }
+
+        switch (user_guess.compareTo(number_to_guess)) {
+            case -1: System.out.println("Too low!"); break;
+            case 0: System.out.println("Spot on!"); break;
+            case 1: System.out.println("Too high!"); break;
+        }
     }
 }
